@@ -13,10 +13,14 @@ buildscript {
 
     ext.cardview_version = "1.0.0"
     ext.recyclerview_version = "1.1.0"
-    ext.material_version = "1.2.0"
+    ext.material_version = "1.1.0"
     ext.glide_version = "4.11.0"
 
     ext.room_version = "2.2.5"
+
+    ext.retrofit_version = "2.9.0"
+    ext.logging_interceptor_version = '4.8.0'
+
 
     repositories {
         google()
