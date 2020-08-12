@@ -10,8 +10,6 @@ buildscript {
     ext.androidx_junit_version = "1.1.1"
     ext.espresso_version = "3.2.0"
     ext.multidex_version = "2.0.1"
-    ext.activity_ktx_version = "1.1.0"
-    ext.fragment_ktx_version = "1.2.5"
 
     ext.cardview_version = "1.0.0"
     ext.recyclerview_version = "1.1.0"
