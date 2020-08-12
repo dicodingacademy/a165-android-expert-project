@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Tourism App</string>
+    <string name="image_description">Image</string>
+    <string name="text_primary">Sample of title text</string>
+    <string name="text_subtitle">Sample of subtitle text</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_map">Maps</string>
+    <string name="menu_favorite">Favorite</string>
+
+    <string name="title_activity_detail_home">DetailHomeActivity</string>
+    <string name="no_data">Empty data</string>
+    <string name="something_wrong">Oops.. something went wrong</string>
+</resources>
