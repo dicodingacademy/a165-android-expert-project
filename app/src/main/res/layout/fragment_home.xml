@@ -12,20 +12,31 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/item_list_tourism" />
 
-    <ProgressBar
+    <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_auto_start="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/item_list_placeholder" />
+                <include layout="@layout/item_list_placeholder" />
+                <include layout="@layout/item_list_placeholder" />
+                <include layout="@layout/item_list_placeholder" />
+            </LinearLayout>
+        </ScrollView>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <include
         android:id="@+id/view_error"

@@ -27,6 +27,7 @@ buildscript {
     ext.koin_version = "2.1.5"
 
     ext.lottie_version = "3.4.1"
+    ext.shimmer_version = "0.5.0"
 
     repositories {
         google()

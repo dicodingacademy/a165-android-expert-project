@@ -43,4 +43,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation "com.airbnb.android:lottie:$lottie_version"
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 }
