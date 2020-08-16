@@ -31,10 +31,6 @@ class FavoriteFragment : Fragment() {
 
         if (activity != null) {
 
-//            hapus kode berikut
-//            val factory = ViewModelFactory.getInstance(requireActivity())
-//            favoriteViewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
-
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailTourismActivity::class.java)
