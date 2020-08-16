@@ -8,18 +8,6 @@ import javax.inject.Provider
 class ViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
-//    hapus kode berikut
-//    companion object {
-//        @Volatile
-//        private var instance: ViewModelFactory? = null
-//
-//        fun getInstance(context: Context): ViewModelFactory =
-//            instance ?: synchronized(this) {
-//                instance ?: ViewModelFactory(
-//                    Injection.provideTourismUseCase(context)
-//                )
-//            }
-//    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

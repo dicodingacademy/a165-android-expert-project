@@ -20,21 +20,6 @@ class TourismRepository @Inject constructor(
     private val appExecutors: AppExecutors
 ) : ITourismRepository {
 
-//    hapus kode berikut
-//    companion object {
-//        @Volatile
-//        private var instance: TourismRepository? = null
-//
-//        fun getInstance(
-//            remoteData: RemoteDataSource,
-//            localData: LocalDataSource,
-//            appExecutors: AppExecutors
-//        ): TourismRepository =
-//            instance ?: synchronized(this) {
-//                instance ?: TourismRepository(remoteData, localData, appExecutors)
-//            }
-//    }
-
     override fun getAllTourism(): Flow<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
             override fun loadFromDB(): Flow<List<Tourism>> {
