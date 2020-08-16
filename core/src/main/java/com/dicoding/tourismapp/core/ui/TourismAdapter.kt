@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.tourismapp.R
+import com.dicoding.tourismapp.core.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import kotlinx.android.synthetic.main.item_list_tourism.view.*
 import java.util.*
