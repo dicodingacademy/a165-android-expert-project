@@ -1,8 +1,8 @@
 # Menjadi Android Developer Expert
 
 Silakan lihat branch untuk berkas atau source code yang diinginkan.
-
-```master : starter project\
+``` 
+master : starter project\
 ├─101-clean-architecture\
 └─102-retrofit\
   │  └─201-rxjava\
