@@ -19,12 +19,12 @@ buildscript {
     ext.room_version = "2.2.5"
 
     ext.retrofit_version = "2.9.0"
-    ext.logging_interceptor_version = '4.8.0'
+    ext.logging_interceptor_version = '4.9.0'
 
-    ext.kotlin_coroutines_version = "1.3.7"
+    ext.kotlin_coroutines_version = "1.3.9"
     ext.lifecycle_version = "2.2.0"
 
-    ext.koin_version = "2.1.5"
+    ext.koin_version = "2.1.6"
 
 
     repositories {
