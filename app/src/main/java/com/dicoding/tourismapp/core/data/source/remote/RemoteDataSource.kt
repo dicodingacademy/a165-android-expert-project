@@ -1,6 +1,7 @@
 package com.dicoding.tourismapp.core.data.source.remote
 
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,7 +25,7 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
         val resultData = MutableLiveData<ApiResponse<List<TourismResponse>>>()
 
         //get data from local json
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             try {
                 val dataArray = jsonHelper.loadData()
