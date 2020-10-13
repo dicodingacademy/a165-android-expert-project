@@ -35,10 +35,10 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
-        val hostname = "dicoding-tourism-api.appspot.com"
+        val hostname = "tourism-api.dicoding.dev"
         val certificatePinner = CertificatePinner.Builder()
-            .add(hostname, "sha256/ODKjQ6+i+TVJ97JdbHWBJQ2gfxWgiphouCnTv8QypNc=")
-            .add(hostname, "sha256/YZPgTZ+woNCCCIW3LH2CxQeLzB/1m42QcCTBSdgayjs=")
+            .add(hostname, "sha256/paJOw+DTCx1KaSMeALtM5gXuxJN4lP04qMKhSXBFa9Y=")
+            .add(hostname, "sha256/qPerI4uMwY1VrtRE5aBY8jIQJopLUuBt2+GDUWMwZn4=")
             .add(hostname, "sha256/iie1VXtL7HzAMF+/PVPR9xzT80kQxdZeJ+zduCB3uj0=")
             .build()
         OkHttpClient.Builder()
@@ -50,7 +50,7 @@ val networkModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://dicoding-tourism-api.appspot.com/")
+            .baseUrl("https://tourism-api.dicoding.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
