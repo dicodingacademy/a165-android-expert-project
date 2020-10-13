@@ -42,7 +42,7 @@ val networkModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://dicoding-tourism-api.appspot.com/")
+            .baseUrl("https://tourism-api.dicoding.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
