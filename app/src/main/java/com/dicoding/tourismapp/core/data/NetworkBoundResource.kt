@@ -2,7 +2,6 @@ package com.dicoding.tourismapp.core.data
 
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
 import kotlinx.coroutines.flow.*
-import javax.xml.transform.Result
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
