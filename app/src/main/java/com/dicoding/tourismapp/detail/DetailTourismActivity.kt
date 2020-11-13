@@ -18,6 +18,8 @@ class DetailTourismActivity : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
     }
 
+    private lateinit var binding: ActivityDetailTourismBinding
+
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -25,11 +27,8 @@ class DetailTourismActivity : AppCompatActivity() {
         factory
     }
 
-    private lateinit var binding: ActivityDetailTourismBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApplication).appComponent.inject(this)
-
         super.onCreate(savedInstanceState)
         binding = ActivityDetailTourismBinding.inflate(layoutInflater)
         setContentView(binding.root)
