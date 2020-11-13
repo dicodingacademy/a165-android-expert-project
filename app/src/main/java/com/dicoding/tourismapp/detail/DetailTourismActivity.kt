@@ -17,8 +17,7 @@ class DetailTourismActivity : AppCompatActivity() {
     }
 
     private lateinit var detailTourismViewModel: DetailTourismViewModel
-
-    lateinit var binding: ActivityDetailTourismBinding
+    private lateinit var binding: ActivityDetailTourismBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
