@@ -13,19 +13,22 @@ import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
+import com.dicoding.tourismapp.databinding.FragmentHomeBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.view_error.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,25 +49,30 @@ class HomeFragment : Fragment() {
             homeViewModel.tourism.observe(viewLifecycleOwner, Observer{ tourism ->
                 if (tourism != null) {
                     when (tourism) {
-                        is Resource.Loading -> progress_bar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            progress_bar.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
                             tourismAdapter.setData(tourism.data)
                         }
                         is Resource.Error -> {
-                            progress_bar.visibility = View.GONE
-                            view_error.visibility = View.VISIBLE
-                            tv_error.text = tourism.message ?: getString(R.string.something_wrong)
+                            binding.progressBar.visibility = View.GONE
+                            binding.viewError.root.visibility = View.VISIBLE
+                            binding.viewError.tvError.text = tourism.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }
             })
 
-            with(rv_tourism) {
+            with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = tourismAdapter
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
