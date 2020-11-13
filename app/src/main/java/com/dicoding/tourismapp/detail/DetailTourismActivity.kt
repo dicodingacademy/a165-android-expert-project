@@ -9,9 +9,7 @@ import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
-import kotlinx.android.synthetic.main.activity_detail_tourism.*
-import kotlinx.android.synthetic.main.content_detail_tourism.*
-import javax.inject.Inject
+import com.dicoding.tourismapp.databinding.ActivityDetailTourismBinding
 
 class DetailTourismActivity : AppCompatActivity() {
 
@@ -26,16 +24,20 @@ class DetailTourismActivity : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
     }
 
+    private lateinit var detailTourismViewModel: DetailTourismViewModel
+    private lateinit var binding: ActivityDetailTourismBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_tourism)
-        setSupportActionBar(toolbar)
+        binding = ActivityDetailTourismBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 //        hapus kode berikut
 //        val factory = ViewModelFactory.getInstance(this)
 //        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
+        setSupportActionBar(binding.toolbar)
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
@@ -44,14 +46,14 @@ class DetailTourismActivity : AppCompatActivity() {
     private fun showDetailTourism(detailTourism: Tourism?) {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
-            tv_detail_description.text = detailTourism.description
+            binding.content.tvDetailDescription.text = detailTourism.description
             Glide.with(this@DetailTourismActivity)
                 .load(detailTourism.image)
-                .into(text_detail_image)
+                .into(binding.ivDetailImage)
 
             var statusFavorite = detailTourism.isFavorite
             setStatusFavorite(statusFavorite)
-            fab.setOnClickListener {
+            binding.fab.setOnClickListener {
                 statusFavorite = !statusFavorite
                 detailTourismViewModel.setFavoriteTourism(detailTourism, statusFavorite)
                 setStatusFavorite(statusFavorite)
@@ -61,9 +63,9 @@ class DetailTourismActivity : AppCompatActivity() {
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
         if (statusFavorite) {
-            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
+            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
         } else {
-            fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
+            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
         }
     }
 }

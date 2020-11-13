@@ -8,16 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
+import com.dicoding.tourismapp.databinding.FragmentHomeBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.view_error.*
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -29,11 +27,15 @@ class HomeFragment : Fragment() {
         factory
     }
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -57,28 +59,33 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
 
-            homeViewModel.tourism.observe(viewLifecycleOwner, Observer { tourism ->
+            homeViewModel.tourism.observe(viewLifecycleOwner, { tourism ->
                 if (tourism != null) {
                     when (tourism) {
-                        is Resource.Loading -> progress_bar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                         is Resource.Success -> {
-                            progress_bar.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
                             tourismAdapter.setData(tourism.data)
                         }
                         is Resource.Error -> {
-                            progress_bar.visibility = View.GONE
-                            view_error.visibility = View.VISIBLE
-                            tv_error.text = tourism.message ?: getString(R.string.something_wrong)
+                            binding.progressBar.visibility = View.GONE
+                            binding.viewError.root.visibility = View.VISIBLE
+                            binding.viewError.tvError.text = tourism.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }
             })
 
-            with(rv_tourism) {
+            with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = tourismAdapter
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
