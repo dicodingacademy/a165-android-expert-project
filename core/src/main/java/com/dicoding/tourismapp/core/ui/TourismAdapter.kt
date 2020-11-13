@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.core.R
+import com.dicoding.tourismapp.core.databinding.ItemListTourismBinding
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import java.util.ArrayList
-import com.dicoding.tourismapp.databinding.ItemListTourismBinding
 
 class TourismAdapter : RecyclerView.Adapter<TourismAdapter.ListViewHolder>() {
 
