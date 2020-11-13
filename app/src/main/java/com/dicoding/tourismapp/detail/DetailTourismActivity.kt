@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
-import dagger.hilt.android.AndroidEntryPoint
 import com.dicoding.tourismapp.databinding.ActivityDetailTourismBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailTourismActivity : AppCompatActivity() {
@@ -16,19 +16,12 @@ class DetailTourismActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
+
+    private lateinit var binding: ActivityDetailTourismBinding
+
     private val detailTourismViewModel: DetailTourismViewModel by viewModels()
 
-    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
-        factory
-    }
-
-    companion object {
-        const val EXTRA_DATA = "extra_data"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
-
         super.onCreate(savedInstanceState)
         binding = ActivityDetailTourismBinding.inflate(layoutInflater)
         setContentView(binding.root)
