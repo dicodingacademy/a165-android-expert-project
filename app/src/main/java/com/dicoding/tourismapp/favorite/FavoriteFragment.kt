@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.MyApplication
-import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.databinding.FragmentFavoriteBinding

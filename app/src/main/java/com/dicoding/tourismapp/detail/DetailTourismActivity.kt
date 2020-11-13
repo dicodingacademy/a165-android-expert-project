@@ -10,8 +10,13 @@ import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import com.dicoding.tourismapp.databinding.ActivityDetailTourismBinding
+import javax.inject.Inject
 
 class DetailTourismActivity : AppCompatActivity() {
+
+    companion object {
+        const val EXTRA_DATA = "extra_data"
+    }
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -20,11 +25,6 @@ class DetailTourismActivity : AppCompatActivity() {
         factory
     }
 
-    companion object {
-        const val EXTRA_DATA = "extra_data"
-    }
-
-    private lateinit var detailTourismViewModel: DetailTourismViewModel
     private lateinit var binding: ActivityDetailTourismBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +34,11 @@ class DetailTourismActivity : AppCompatActivity() {
         binding = ActivityDetailTourismBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
 //        hapus kode berikut
 //        val factory = ViewModelFactory.getInstance(this)
 //        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
-        setSupportActionBar(binding.toolbar)
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
