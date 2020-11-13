@@ -19,7 +19,7 @@ buildscript {
     ext.room_version = "2.2.5"
 
     ext.retrofit_version = "2.9.0"
-    ext.logging_interceptor_version = '4.8.0'
+    ext.logging_interceptor_version = '4.9.0'
 
     ext.rxjava_version = "2.2.19"
     ext.rxandroid_version = "2.1.1"

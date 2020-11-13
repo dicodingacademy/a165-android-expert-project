@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
@@ -46,7 +45,7 @@ class HomeFragment : Fragment() {
             val factory = ViewModelFactory.getInstance(requireActivity())
             homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
-            homeViewModel.tourism.observe(viewLifecycleOwner, Observer{ tourism ->
+            homeViewModel.tourism.observe(viewLifecycleOwner, { tourism ->
                 if (tourism != null) {
                     when (tourism) {
                         is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE

@@ -9,6 +9,8 @@ import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.DataMapper
 import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
