@@ -8,14 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.MyApplication
-import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.core.ui.ViewModelFactory
+import com.dicoding.tourismapp.databinding.FragmentFavoriteBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
-import kotlinx.android.synthetic.main.fragment_favorite.*
 import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
@@ -27,11 +25,15 @@ class FavoriteFragment : Fragment() {
         factory
     }
 
+    private var _binding: FragmentFavoriteBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -55,16 +57,21 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, Observer { dataTourism ->
+            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, { dataTourism ->
                 tourismAdapter.setData(dataTourism)
-                view_empty.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
+                binding.viewEmpty.root.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
             })
 
-            with(rv_tourism) {
+            with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = tourismAdapter
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
