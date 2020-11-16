@@ -2,14 +2,13 @@ package com.dicoding.tourismapp.maps
 
 import android.content.Intent
 import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.tourismapp.core.data.Resource
-import com.dicoding.tourismapp.maps.databinding.ActivityMapsBinding
 import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.detail.DetailTourismActivity
+import com.dicoding.tourismapp.maps.databinding.ActivityMapsBinding
 import com.dicoding.tourismapp.maps.di.mapsModule
 import com.google.gson.Gson
 import com.mapbox.mapboxsdk.Mapbox
@@ -20,7 +19,6 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import kotlinx.android.synthetic.main.activity_maps.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
@@ -40,14 +38,14 @@ class MapsActivity : AppCompatActivity() {
 
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
 
-        setContentView(R.layout.activity_maps)
         binding = ActivityMapsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         loadKoinModules(mapsModule)
         supportActionBar?.title = "Tourism Map"
 
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync { mapboxMap ->
+        binding.mapView.onCreate(savedInstanceState)
+        binding.mapView.getMapAsync { mapboxMap ->
             this.mapboxMap = mapboxMap
             getTourismData()
         }
@@ -60,7 +58,7 @@ class MapsActivity : AppCompatActivity() {
                     is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                     is Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        binding.tvMaps.text = "This is map of ${tourism.data?.get(0)?.name}"
+                        showMarker(tourism.data)
                     }
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
@@ -77,7 +75,7 @@ class MapsActivity : AppCompatActivity() {
             style.addImage(ICON_ID, BitmapFactory.decodeResource(resources, R.drawable.mapbox_marker_icon_default))
             val latLngBoundsBuilder = LatLngBounds.Builder()
 
-            val symbolManager = SymbolManager(mapView, mapboxMap, style)
+            val symbolManager = SymbolManager(binding.mapView, mapboxMap, style)
             symbolManager.iconAllowOverlap = true
 
             val options = ArrayList<SymbolOptions>()
@@ -102,5 +100,40 @@ class MapsActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.mapView.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapView.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.mapView.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        binding.mapView.onSaveInstanceState(outState)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        binding.mapView.onLowMemory()
     }
 }
