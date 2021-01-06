@@ -30,7 +30,7 @@ class TourismRepository @Inject constructor(
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
 //                data == null || data.isEmpty()
-                 true // ganti dengan true jika ingin selalu mengambil data dari internet
+                true // ganti dengan true jika ingin selalu mengambil data dari internet
 
             override suspend fun createCall(): Flow<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
