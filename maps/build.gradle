@@ -2,7 +2,6 @@ plugins {
     id 'com.android.dynamic-feature'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 apply from: '../shared_dependencies.gradle'
@@ -43,7 +42,4 @@ dependencies {
     implementation project(":core")
     implementation project(":app")
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
