@@ -28,8 +28,7 @@ buildscript {
     ext.activity_ktx_version = "1.1.0"
     ext.fragment_ktx_version = '1.2.5'
 
-    ext.hilt_version = '2.34.1-beta'
-    ext.hilt_jetpack_version = '1.0.0-alpha03'
+    ext.hilt_version = '2.36'
 
     repositories {
         google()
