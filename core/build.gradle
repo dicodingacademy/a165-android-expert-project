@@ -8,7 +8,6 @@ apply from: '../shared_dependencies.gradle'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
 
     defaultConfig {
         minSdkVersion 16
@@ -43,14 +42,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //room
-    implementation "androidx.room:room-runtime:$room_version"
+    api "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"
 
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+    api "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
 
     //coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
