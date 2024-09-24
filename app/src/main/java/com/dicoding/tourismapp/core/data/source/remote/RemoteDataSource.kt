@@ -34,7 +34,7 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper) {
                 } else {
                     resultData.value = ApiResponse.Empty
                 }
-            } catch (e: JSONException){
+            } catch (e: JSONException) {
                 resultData.value = ApiResponse.Error(e.toString())
                 Log.e("RemoteDataSource", e.toString())
             }
