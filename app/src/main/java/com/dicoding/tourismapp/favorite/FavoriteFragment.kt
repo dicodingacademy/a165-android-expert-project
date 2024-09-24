@@ -10,19 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.core.ui.TourismAdapter
 import com.dicoding.tourismapp.databinding.FragmentFavoriteBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModel()
-
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,6 +30,10 @@ class FavoriteFragment : Fragment() {
 
         if (activity != null) {
 
+//            hapus kode berikut
+//            val factory = ViewModelFactory.getInstance(requireActivity())
+//            favoriteViewModel = ViewModelProvider(this, factory)[FavoriteViewModel::class.java]
+
             val tourismAdapter = TourismAdapter()
             tourismAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailTourismActivity::class.java)
@@ -39,10 +41,11 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, { dataTourism ->
-                tourismAdapter.setData(dataTourism)
-                binding.viewEmpty.root.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
-            })
+            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner) { dataTourism ->
+                tourismAdapter.submitList(dataTourism)
+                binding.viewEmpty.root.visibility =
+                    if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
+            }
 
             with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
@@ -50,10 +53,5 @@ class FavoriteFragment : Fragment() {
                 adapter = tourismAdapter
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
