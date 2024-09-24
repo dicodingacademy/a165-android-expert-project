@@ -41,8 +41,8 @@ class TourismRepository(
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
-//                data == null || data.isEmpty()
-                 true // ganti dengan true jika ingin selalu mengambil data dari internet
+                data.isNullOrEmpty() // mengambil data dari internet hanya jika data di database kosong
+//                 true // ganti dengan true jika ingin selalu mengambil data dari internet
 
             override suspend fun createCall(): Flow<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
