@@ -1,4 +1,0 @@
-include ':maps'
-include ':core'
-rootProject.name='Tourism App'
-include ':app'
