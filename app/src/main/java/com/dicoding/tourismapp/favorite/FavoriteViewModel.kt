@@ -10,4 +10,3 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(tourismUseCase: TourismUseCase) : ViewModel() {
     val favoriteTourism = tourismUseCase.getFavoriteTourism().asLiveData()
 }
-
