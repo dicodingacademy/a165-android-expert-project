@@ -13,10 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailTourismActivity : AppCompatActivity() {
 
-    companion object {
-        const val EXTRA_DATA = "extra_data"
-    }
-
     private lateinit var binding: ActivityDetailTourismBinding
 
     private val detailTourismViewModel: DetailTourismViewModel by viewModels()
@@ -25,10 +21,7 @@ class DetailTourismActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailTourismBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        hapus kode berikut
-//        val factory = ViewModelFactory.getInstance(this)
-//        detailTourismViewModel = ViewModelProvider(this, factory)[DetailTourismViewModel::class.java]
+        setSupportActionBar(binding.toolbar)
 
         val detailTourism = intent.getParcelableExtra<Tourism>(EXTRA_DATA)
         showDetailTourism(detailTourism)
@@ -37,7 +30,7 @@ class DetailTourismActivity : AppCompatActivity() {
     private fun showDetailTourism(detailTourism: Tourism?) {
         detailTourism?.let {
             supportActionBar?.title = detailTourism.name
-            binding.content.tvDetailDescription.text = detailTourism.description
+            binding.contentDetailTourism.tvDetailDescription.text = detailTourism.description
             Glide.with(this@DetailTourismActivity)
                 .load(detailTourism.image)
                 .into(binding.ivDetailImage)
@@ -58,5 +51,9 @@ class DetailTourismActivity : AppCompatActivity() {
         } else {
             binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
         }
+    }
+
+    companion object {
+        const val EXTRA_DATA = "extra_data"
     }
 }

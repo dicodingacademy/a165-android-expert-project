@@ -11,7 +11,6 @@ import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
 
 class MapsActivity : AppCompatActivity() {
-
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -42,7 +41,7 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun getTourismData() {
-        mapsViewModel.tourism.observe(this, { tourism ->
+        mapsViewModel.tourism.observe(this) { tourism ->
             if (tourism != null) {
                 when (tourism) {
                     is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
@@ -50,6 +49,7 @@ class MapsActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         binding.tvMaps.text = "This is map of ${tourism.data?.get(0)?.name}"
                     }
+
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         binding.tvError.visibility = View.VISIBLE
@@ -57,6 +57,6 @@ class MapsActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        }
     }
 }
