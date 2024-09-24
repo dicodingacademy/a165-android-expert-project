@@ -18,13 +18,19 @@ class FavoriteFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels()
 
+//    @Inject
+//    lateinit var factory: ViewModelFactory
+//
+//    private val favoriteViewModel: FavoriteViewModel by viewModels {
+//        factory
+//    }
+
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,10 +47,11 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner, { dataTourism ->
-                tourismAdapter.setData(dataTourism)
-                binding.viewEmpty.root.visibility = if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
-            })
+            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner) { dataTourism ->
+                tourismAdapter.submitList(dataTourism)
+                binding.viewEmpty.root.visibility =
+                    if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
+            }
 
             with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
@@ -52,10 +59,5 @@ class FavoriteFragment : Fragment() {
                 adapter = tourismAdapter
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
