@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mapbox.mapboxsdk.maps.MapView
+    <com.mapbox.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -12,9 +12,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mapbox_cameraTargetLat="-3"
-        app:mapbox_cameraTargetLng="111"
-        app:mapbox_cameraZoom="2" />
+        app:mapbox_cameraTargetLat="1"
+        app:mapbox_cameraTargetLng="117"
+        app:mapbox_cameraZoom="2.5" />
 
     <TextView
         android:id="@+id/tv_error"

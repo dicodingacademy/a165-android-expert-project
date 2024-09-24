@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Tourism App</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -12,4 +12,6 @@
     <string name="no_data">Empty data</string>
     <string name="something_wrong">Oops.. something went wrong</string>
     <string name="title_maps">Maps</string>
+
+    <string name="mapbox_access_token" translatable="false" tools:ignore="UnusedResources">pk.eyJ1IjoiYXJpZmRpY29kaW5nIiwiYSI6ImNsa3V1NWVmZjBubDAzcG9lOWl6anozNTAifQ.Usa-IV0x1ikkP3-tSJl8YQ</string>
 </resources>

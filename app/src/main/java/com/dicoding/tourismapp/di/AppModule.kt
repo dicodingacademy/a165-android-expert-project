@@ -5,7 +5,7 @@ import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
 import com.dicoding.tourismapp.detail.DetailTourismViewModel
 import com.dicoding.tourismapp.favorite.FavoriteViewModel
 import com.dicoding.tourismapp.home.HomeViewModel
-import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val useCaseModule = module {
