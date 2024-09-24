@@ -18,22 +18,23 @@ import com.dicoding.tourismapp.databinding.FragmentHomeBinding
 import com.dicoding.tourismapp.detail.DetailTourismActivity
 import javax.inject.Inject
 
+
 class HomeFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     private val homeViewModel: HomeViewModel by viewModels {
         factory
     }
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -59,22 +60,23 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
 
-            homeViewModel.tourism.observe(viewLifecycleOwner, { tourism ->
+            homeViewModel.tourism.observe(viewLifecycleOwner) { tourism ->
                 if (tourism != null) {
                     when (tourism) {
                         is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                         is Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
-                            tourismAdapter.setData(tourism.data)
+                            tourismAdapter.submitList(tourism.data)
                         }
                         is Resource.Error -> {
                             binding.progressBar.visibility = View.GONE
                             binding.viewError.root.visibility = View.VISIBLE
-                            binding.viewError.tvError.text = tourism.message ?: getString(R.string.something_wrong)
+                            binding.viewError.tvError.text =
+                                tourism.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }
-            })
+            }
 
             with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
@@ -82,10 +84,5 @@ class HomeFragment : Fragment() {
                 adapter = tourismAdapter
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
