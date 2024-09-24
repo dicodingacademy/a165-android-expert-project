@@ -17,6 +17,21 @@ class TourismRepository(
     private val appExecutors: AppExecutors
 ) : ITourismRepository {
 
+//    hapus kode berikut
+//    companion object {
+//        @Volatile
+//        private var instance: TourismRepository? = null
+//
+//        fun getInstance(
+//            remoteData: RemoteDataSource,
+//            localData: LocalDataSource,
+//            appExecutors: AppExecutors
+//        ): TourismRepository =
+//            instance ?: synchronized(this) {
+//                instance ?: TourismRepository(remoteData, localData, appExecutors)
+//            }
+//    }
+
     override fun getAllTourism(): Flow<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
             override fun loadFromDB(): Flow<List<Tourism>> {
@@ -26,8 +41,8 @@ class TourismRepository(
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
-//                data == null || data.isEmpty()
-                 true // ganti dengan true jika ingin selalu mengambil data dari internet
+                data.isNullOrEmpty() // mengambil data dari internet hanya jika data di database kosong
+//                 true // ganti dengan true jika ingin selalu mengambil data dari internet
 
             override suspend fun createCall(): Flow<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()

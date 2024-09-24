@@ -14,24 +14,32 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 is ApiResponse.Success -> {
                     saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map {
-                        Resource.Success(it)
+                        Resource.Success(
+                            it
+                        )
                     })
                 }
                 is ApiResponse.Empty -> {
                     emitAll(loadFromDB().map {
-                        Resource.Success(it)
+                        Resource.Success(
+                            it
+                        )
                     })
                 }
                 is ApiResponse.Error -> {
                     onFetchFailed()
                     emit(
-                        Resource.Error<ResultType>(apiResponse.errorMessage)
+                        Resource.Error(
+                            apiResponse.errorMessage
+                        )
                     )
                 }
             }
         } else {
             emitAll(loadFromDB().map {
-                Resource.Success(it)
+                Resource.Success(
+                    it
+                )
             })
         }
     }
