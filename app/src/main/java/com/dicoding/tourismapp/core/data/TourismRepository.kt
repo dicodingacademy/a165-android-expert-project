@@ -36,7 +36,7 @@ class TourismRepository private constructor(
             }
 
             override fun shouldFetch(data: List<TourismEntity>?): Boolean =
-                data == null || data.isEmpty()
+                data.isNullOrEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
