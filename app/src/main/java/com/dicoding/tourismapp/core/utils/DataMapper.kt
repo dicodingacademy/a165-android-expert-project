@@ -39,6 +39,7 @@ object DataMapper {
             )
         }
 
+
     fun mapDomainToEntity(input: Tourism) = TourismEntity(
         tourismId = input.tourismId,
         description = input.description,

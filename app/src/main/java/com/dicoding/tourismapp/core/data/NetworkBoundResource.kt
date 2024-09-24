@@ -1,14 +1,14 @@
 package com.dicoding.tourismapp.core.data
 
 import com.dicoding.tourismapp.core.data.source.remote.network.ApiResponse
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.BackpressureStrategy
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
 
-abstract class NetworkBoundResource<ResultType, RequestType> {
+abstract class NetworkBoundResource<ResultType: Any, RequestType> {
 
     private val result = PublishSubject.create<Resource<ResultType>>()
     private val mCompositeDisposable = CompositeDisposable()
@@ -21,7 +21,6 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             .observeOn(AndroidSchedulers.mainThread())
             .take(1)
             .subscribe { value ->
-                dbSource.unsubscribeOn(Schedulers.io())
                 if (shouldFetch(value)) {
                     fetchFromNetwork()
                 } else {
@@ -58,23 +57,23 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     is ApiResponse.Success -> {
                         saveCallResult(response.data)
                         val dbSource = loadFromDB()
-                        dbSource.subscribeOn(Schedulers.computation())
+                        val subscribe = dbSource.subscribeOn(Schedulers.computation())
                             .observeOn(AndroidSchedulers.mainThread())
                             .take(1)
                             .subscribe {
-                                dbSource.unsubscribeOn(Schedulers.io())
                                 result.onNext(Resource.Success(it))
                             }
+                        subscribe.dispose()
                     }
                     is ApiResponse.Empty -> {
                         val dbSource = loadFromDB()
-                        dbSource.subscribeOn(Schedulers.computation())
+                        val subscribe = dbSource.subscribeOn(Schedulers.computation())
                             .observeOn(AndroidSchedulers.mainThread())
                             .take(1)
                             .subscribe {
-                                dbSource.unsubscribeOn(Schedulers.io())
                                 result.onNext(Resource.Success(it))
                             }
+                        subscribe.dispose()
                     }
                     is ApiResponse.Error -> {
                         onFetchFailed()

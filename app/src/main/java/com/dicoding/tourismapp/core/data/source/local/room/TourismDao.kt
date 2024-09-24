@@ -1,9 +1,13 @@
 package com.dicoding.tourismapp.core.data.source.local.room
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
 
 @Dao
 interface TourismDao {

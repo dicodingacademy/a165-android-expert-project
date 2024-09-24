@@ -8,9 +8,9 @@ import com.dicoding.tourismapp.core.domain.model.Tourism
 import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
 import com.dicoding.tourismapp.core.utils.AppExecutors
 import com.dicoding.tourismapp.core.utils.DataMapper
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -35,12 +35,14 @@ class TourismRepository private constructor(
     override fun getAllTourism(): Flowable<Resource<List<Tourism>>> =
         object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
             override fun loadFromDB(): Flowable<List<Tourism>> {
-                return localDataSource.getAllTourism().map { DataMapper.mapEntitiesToDomain(it) }
+                return localDataSource.getAllTourism().map {
+                    DataMapper.mapEntitiesToDomain(it)
+                }
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
-//                data == null || data.isEmpty()
-                true // ganti dengan true jika ingin selalu mengambil data dari internet
+                data.isNullOrEmpty() // mengambil data dari internet hanya jika data di database kosong
+//                 true // ganti dengan true jika ingin selalu mengambil data dari internet
 
             override fun createCall(): Flowable<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
@@ -55,7 +57,9 @@ class TourismRepository private constructor(
         }.asFlowable()
 
     override fun getFavoriteTourism(): Flowable<List<Tourism>> {
-        return localDataSource.getFavoriteTourism().map { DataMapper.mapEntitiesToDomain(it) }
+        return localDataSource.getFavoriteTourism().map {
+            DataMapper.mapEntitiesToDomain(it)
+        }
     }
 
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {

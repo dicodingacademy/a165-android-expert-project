@@ -2,7 +2,7 @@ package com.dicoding.tourismapp.core.data.source.local
 
 import com.dicoding.tourismapp.core.data.source.local.entity.TourismEntity
 import com.dicoding.tourismapp.core.data.source.local.room.TourismDao
-import io.reactivex.Flowable
+import io.reactivex.rxjava3.core.Flowable
 
 class LocalDataSource private constructor(private val tourismDao: TourismDao) {
 
